@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node src/dist/index.js",
-    "dev": "nodemon --exec \"ts-node --transpile-only src/index.ts\"",
+    "dev": "nodemon --ext ts,json --exec \"ts-node --transpile-only src/index.ts\"",
     "seed": "ts-node src/scripts/seedAdmin.ts"
   },
   "keywords": [],

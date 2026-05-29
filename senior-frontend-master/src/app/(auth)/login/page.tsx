@@ -99,7 +99,7 @@ export default function Login() {
         <div className="grid gap-8 md:grid-cols-[1.05fr,1fr] bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-[0_25px_70px_-35px_rgba(168,85,247,0.35)] backdrop-blur-xl">
           <div className="space-y-6 md:pr-6">
             <div>
-              <h1 className="text-4xl sm:text-5xl font-semibold leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
                 Login to yalla nbadel
               </h1>
               <p className="mt-3 text-lg text-slate-200/90">

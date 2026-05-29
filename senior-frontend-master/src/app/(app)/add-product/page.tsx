@@ -148,7 +148,7 @@ export default function AddProductPage() {
           <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
             Listing
           </p>
-          <h1 className="text-3xl font-extrabold text-white drop-shadow">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white drop-shadow">
             Add New Product
           </h1>
         </div>

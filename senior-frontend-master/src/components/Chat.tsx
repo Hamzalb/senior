@@ -450,7 +450,7 @@ export default function Chat({
                     className={`flex ${isOwn ? "justify-end" : "justify-start"} mb-2`}
                   >
                     <div
-                      className={`relative group max-w-[70%] px-4 py-2 rounded-2xl ${
+                      className={`relative group max-w-[85%] sm:max-w-[70%] px-4 py-2 rounded-2xl ${
                         isTradeRequest
                           ? "bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30"
                           : isOwn

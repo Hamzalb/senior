@@ -113,7 +113,7 @@ export default function ProfilePage() {
             <p className="text-sm uppercase tracking-[0.35em] text-brand-300/80">
               Account
             </p>
-            <h1 className="text-5xl font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 tracking-tight">
               My Profile
             </h1>
             <p className="text-white/70 text-lg">

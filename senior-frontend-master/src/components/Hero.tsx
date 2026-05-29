@@ -449,7 +449,7 @@ export default function Hero() {
 
         {/* Secondary orb - bottom right */}
         <motion.div
-          className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-brand-700/25 rounded-full blur-3xl"
+          className="absolute -bottom-32 -right-32 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] bg-brand-700/25 rounded-full blur-3xl"
           animate={prefersReducedMotion ? {} : {
             y: [0, -24, 0],
             scale: [1, 1.07, 1],
@@ -477,7 +477,7 @@ export default function Hero() {
 
         {/* Subtle glow orb - center */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-400/10 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[600px] lg:h-[600px] bg-brand-400/10 rounded-full blur-3xl"
           animate={prefersReducedMotion ? {} : {
             scale: [1, 1.1, 1],
             opacity: [0.5, 0.8, 0.5],
@@ -538,7 +538,7 @@ export default function Hero() {
 
                 {/* Title with Staggered Animation */}
                 <motion.h1
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-none"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold tracking-tight leading-none"
                   variants={containerVariants}
                 >
                   {titleWords.map((word, index) => (

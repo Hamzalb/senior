@@ -272,7 +272,7 @@ function MessagesContent() {
 
   // Desktop view
   const DesktopView = () => (
-    <div className="flex h-[calc(100vh-200px)] min-h-[600px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
+    <div className="flex h-[calc(100vh-160px)] min-h-[400px] sm:min-h-[500px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
       {/* Sidebar with tabs */}
       <div className="w-1/3 border-r border-white/10 flex flex-col">
         {/* Tabs */}

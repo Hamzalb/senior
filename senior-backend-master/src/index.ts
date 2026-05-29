@@ -13,6 +13,7 @@ import adminRoutes from "./routes/adminRoutes";
 import notificationRoutes from "./routes/notificationRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
+import Category from "./models/Category";
 import { notFound, errorHandler } from "./middleware/errorMiddleware";
 import { initSocket } from "./socket";
 
@@ -83,9 +84,17 @@ const PORT = Number(process.env.PORT) || 5001;
 
 mongoose
   .connect(process.env.MONGO_URI as string)
-  .then(() => {
+  .then(async () => {
     console.log("✅ MongoDB connected");
-    
+
+    // Mark all built-in categories as isDefault: true
+    const DEFAULT_CATEGORIES = ["Electronics", "Clothing", "Books", "Toys", "Home", "Automobiles", "Other"];
+    const result = await Category.updateMany(
+      { name: { $in: DEFAULT_CATEGORIES } },
+      { $set: { isDefault: true } }
+    );
+    console.log(`✅ Marked ${result.modifiedCount} categories as built-in`);
+
     // Initialize Socket.io
     initSocket(httpServer);
     console.log("🔌 Socket.io initialized");
