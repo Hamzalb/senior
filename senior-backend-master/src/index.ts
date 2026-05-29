@@ -12,6 +12,7 @@ import productRoutes from "./routes/productRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import notificationRoutes from "./routes/notificationRoutes";
 import messageRoutes from "./routes/messageRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
 import { notFound, errorHandler } from "./middleware/errorMiddleware";
 import { initSocket } from "./socket";
 
@@ -23,18 +24,19 @@ const FRONTEND_URLS = [
   "https://senior-frontend-eta.vercel.app",
   "http://localhost:3000",
   "http://localhost:5050",
-  "http://192.168.56.1:3000",
-  "http://192.168.56.1:5050",
+  "http://192.168.1.108:3000",
+  "http://192.168.1.108:5050",
 ];
 
 app.use(
   cors({
     origin: (incomingOrigin, callback) => {
-      // allow requests with no origin (like mobile apps or curl)
+      // allow requests with no origin (mobile apps, curl, Postman)
       if (!incomingOrigin) return callback(null, true);
 
-      if (FRONTEND_URLS.includes(incomingOrigin)) {
-        // echo back the exact origin
+      // allow any local network IP (192.168.x.x or 10.x.x.x) for development
+      const isLocalNetwork = /^http:\/\/(192\.168\.|10\.)[\d.]+:\d+$/.test(incomingOrigin);
+      if (FRONTEND_URLS.includes(incomingOrigin) || isLocalNetwork) {
         callback(null, incomingOrigin);
       } else {
         callback(
@@ -70,6 +72,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/categories", categoryRoutes);
 
 // 4) Error handlers
 app.use(notFound);

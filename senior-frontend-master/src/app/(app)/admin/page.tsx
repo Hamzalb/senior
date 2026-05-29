@@ -1,7 +1,7 @@
 // components/Dashboard.tsx
 "use client";
 
-import { Box, LogOut, Activity, Users } from "lucide-react";
+import { Box, LogOut, Activity, Users, Tag } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -76,7 +76,7 @@ export default function Dashboard() {
         });
         if (!res.ok) return;
         const data = await res.json();
-        setBarters(data);
+        setBarters(Array.isArray(data) ? data : (data.barters ?? []));
       } catch (err) {
         console.error("Error fetching barters", err);
       }
@@ -85,6 +85,23 @@ export default function Dashboard() {
     fetchStats();
     fetchBarters();
   }, []);
+
+  const handleClearBarters = async () => {
+    if (!confirm("Are you sure you want to delete ALL barters? This cannot be undone.")) return;
+    try {
+      const token = Cookies.get("token");
+      const res = await fetch(`${API_BASE}/api/admin/barters`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setBarters([]);
+        setStats((prev) => ({ ...prev, barters: 0 }));
+      }
+    } catch (err) {
+      console.error("Error clearing barters", err);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -128,18 +145,47 @@ export default function Dashboard() {
             <div className="text-brand-400 font-bold">{adminName}</div>
           </div>
         </div>
-        <nav className="flex flex-col gap-2">
-          <Link
-            href="/admin/users"
-            className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-brand-500/10 transition-colors duration-200 text-white/70 hover:text-white font-medium text-sm group"
-          >
-            <Users className="w-5 h-5 text-brand-400 group-hover:text-brand-300 transition-colors" /> Users
+        <nav className="flex flex-col gap-3">
+          <Link href="/admin/users" className="group block">
+            <div className="relative overflow-hidden flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-brand-500/10 hover:border-brand-500/30 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-brand-500/10 to-transparent pointer-events-none" />
+              <div className="relative w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-brand-500/10 border border-brand-500/20 group-hover:scale-110 transition-all duration-300">
+                <Users className="w-4 h-4 text-brand-400" />
+              </div>
+              <div className="relative flex-1">
+                <p className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">Users</p>
+                <p className="text-xs text-white/40">Manage all users</p>
+              </div>
+              <span className="relative text-brand-400 opacity-0 group-hover:opacity-100 transition-all duration-300 text-sm">→</span>
+            </div>
           </Link>
-          <Link
-            href="/admin/products"
-            className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-brand-500/10 transition-colors duration-200 text-white/70 hover:text-white font-medium text-sm group"
-          >
-            <Box className="w-5 h-5 text-brand-400 group-hover:text-brand-300 transition-colors" /> Products
+
+          <Link href="/admin/products" className="group block">
+            <div className="relative overflow-hidden flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-brand-500/10 hover:border-brand-500/30 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-brand-500/10 to-transparent pointer-events-none" />
+              <div className="relative w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-brand-500/10 border border-brand-500/20 group-hover:scale-110 transition-all duration-300">
+                <Box className="w-4 h-4 text-brand-400" />
+              </div>
+              <div className="relative flex-1">
+                <p className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">Products</p>
+                <p className="text-xs text-white/40">Manage listings</p>
+              </div>
+              <span className="relative text-brand-400 opacity-0 group-hover:opacity-100 transition-all duration-300 text-sm">→</span>
+            </div>
+          </Link>
+
+          <Link href="/admin/categories" className="group block">
+            <div className="relative overflow-hidden flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-brand-500/10 hover:border-brand-500/30 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-brand-500/10 to-transparent pointer-events-none" />
+              <div className="relative w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-brand-500/10 border border-brand-500/20 group-hover:scale-110 transition-all duration-300">
+                <Tag className="w-4 h-4 text-brand-400" />
+              </div>
+              <div className="relative flex-1">
+                <p className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">Categories</p>
+                <p className="text-xs text-white/40">Manage categories</p>
+              </div>
+              <span className="relative text-brand-400 opacity-0 group-hover:opacity-100 transition-all duration-300 text-sm">→</span>
+            </div>
           </Link>
         </nav>
         <button
@@ -164,6 +210,12 @@ export default function Dashboard() {
             <Link href="/admin/products" className="w-full">
               <button className="w-full rounded-xl bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 px-6 py-3 flex items-center justify-center gap-2 text-white font-semibold shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 transition-all duration-200 text-sm">
                 <Box className="w-5 h-5" /> Manage Products
+              </button>
+            </Link>
+
+            <Link href="/admin/categories" className="w-full">
+              <button className="w-full rounded-xl bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 px-6 py-3 flex items-center justify-center gap-2 text-white font-semibold shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 transition-all duration-200 text-sm">
+                <Tag className="w-5 h-5" /> Manage Categories
               </button>
             </Link>
           </div>
@@ -207,10 +259,19 @@ export default function Dashboard() {
 
           {/** Barters Section **/}
           <section className="mb-12">
-            {/* Hide heading on mobile, show on md+ */}
-            <h2 className="hidden md:block text-2xl sm:text-3xl font-heading font-bold text-white mb-4 text-left">
-              Recent <span className="text-brand-400">Barters</span>
-            </h2>
+            <div className="hidden md:flex items-center justify-between mb-4">
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-white">
+                Recent <span className="text-brand-400">Barters</span>
+              </h2>
+              {barters.length > 0 && (
+                <button
+                  onClick={handleClearBarters}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border border-red-500/30 rounded-lg text-sm font-semibold transition-all duration-200"
+                >
+                  Clear All Barters
+                </button>
+              )}
+            </div>
 
             {/** On mobile (<md): show a message **/}
             <div className="md:hidden text-center text-white/60 py-8">

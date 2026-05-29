@@ -1,5 +1,5 @@
 "use client";
-import { User, Box, LogOut, Activity, Users } from "lucide-react";
+import { User, Box, LogOut, Activity, Users, Tag } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -72,7 +72,7 @@ export default function Dashboard() {
           return;
         }
         const data = await res.json();
-        setBarters(Array.isArray(data) ? data : []);
+        setBarters(Array.isArray(data) ? data : (data.barters ?? []));
       } catch (err) {
         console.error("Error fetching barters", err);
       }
@@ -143,6 +143,12 @@ export default function Dashboard() {
           >
             Manage Products
           </Link>
+          <Link
+            href="/admin/categories"
+            className="text-slate-300 hover:text-white transition-all duration-300 ease-out"
+          >
+            Manage Categories
+          </Link>
         </nav>
       </aside>
 
@@ -165,12 +171,24 @@ export default function Dashboard() {
 
             <Link href="/admin/products" className="w-full sm:w-auto">
               <button
-                className="w-full sm:w-auto rounded-2xl bg-gradient-to-r from-brand-600 to-brand-500 
-            px-6 py-3 text-white font-semibold shadow-xl hover:shadow-brand-900/40 
+                className="w-full sm:w-auto rounded-2xl bg-gradient-to-r from-brand-600 to-brand-500
+            px-6 py-3 text-white font-semibold shadow-xl hover:shadow-brand-900/40
             hover:translate-y-[-2px] transition-all"
               >
                 <div className="flex items-center gap-2">
                   <Box className="w-6 h-6" /> Manage Products
+                </div>
+              </button>
+            </Link>
+
+            <Link href="/admin/categories" className="w-full sm:w-auto">
+              <button
+                className="w-full sm:w-auto rounded-2xl bg-gradient-to-r from-brand-600 to-brand-500
+            px-6 py-3 text-white font-semibold shadow-xl hover:shadow-brand-900/40
+            hover:translate-y-[-2px] transition-all"
+              >
+                <div className="flex items-center gap-2">
+                  <Tag className="w-6 h-6" /> Manage Categories
                 </div>
               </button>
             </Link>

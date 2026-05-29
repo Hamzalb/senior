@@ -29,6 +29,15 @@ router.get("/stats", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+router.delete("/barters", async (req: any, res: any) => {
+  try {
+    const result = await Barter.deleteMany({});
+    res.json({ message: `Cleared ${result.deletedCount} barters` });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to clear barters" });
+  }
+});
+
 router.get("/barters", async (req: any, res: any) => {
   try {
     const page = Math.max(1, parseInt(req.query.page as string) || 1);
