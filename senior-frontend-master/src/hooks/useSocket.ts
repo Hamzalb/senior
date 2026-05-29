@@ -33,12 +33,13 @@ export const useSocket = () => {
 
     try {
       const newSocket = io(API_BASE, {
-        transports: ["websocket", "polling"],
+        transports: ["polling", "websocket"], // polling first — always works on mobile/proxies
+        upgrade: true,                         // then upgrade to websocket if available
         reconnection: true,
-        reconnectionAttempts: 5,
-        reconnectionDelay: 1000,
-        reconnectionDelayMax: 5000,
-        timeout: 10000,
+        reconnectionAttempts: 10,
+        reconnectionDelay: 2000,
+        reconnectionDelayMax: 10000,
+        timeout: 20000,                        // longer timeout for slow mobile networks
         forceNew: true,
       });
 

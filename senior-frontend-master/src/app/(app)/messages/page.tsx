@@ -207,7 +207,7 @@ function MessagesContent() {
 
   // Filter conversations by search query
   const filteredConversations = conversations.filter((conv) =>
-    conv.user.username.toLowerCase().includes(searchQuery.toLowerCase())
+    conv.user?.username?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false
   );
 
   // Handle selecting a user from the all users list
@@ -272,9 +272,9 @@ function MessagesContent() {
 
   // Desktop view
   const DesktopView = () => (
-    <div className="flex h-[calc(100vh-160px)] min-h-[400px] sm:min-h-[500px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
+    <div className="flex h-[calc(100dvh-220px)] min-h-[400px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
       {/* Sidebar with tabs */}
-      <div className="w-1/3 border-r border-white/10 flex flex-col">
+      <div className="w-full md:w-72 lg:w-80 flex-shrink-0 border-r border-white/10 flex flex-col">
         {/* Tabs */}
         <div className="flex border-b border-white/10">
           <button
@@ -456,7 +456,7 @@ function MessagesContent() {
                             {user.username}
                           </h3>
                           {existingConv && (
-                            <span className="text-xs text-brand-400">
+                            <span className="hidden lg:inline text-xs text-brand-400">
                               In conversations
                             </span>
                           )}
@@ -495,7 +495,7 @@ function MessagesContent() {
 
   // Mobile view
   const MobileView = () => (
-    <div className="h-[calc(100vh-200px)] min-h-[600px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
+    <div className="h-[calc(100dvh-160px)] min-h-[380px] rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10">
       <AnimatePresence mode="wait">
         {activeRecipient ? (
           <motion.div
@@ -722,12 +722,12 @@ function MessagesContent() {
   );
 
   return (
-    <section className="relative bg-surface min-h-screen py-20 px-4 sm:px-6 lg:px-10 overflow-hidden">
+    <section className="relative bg-surface min-h-screen py-6 sm:py-12 md:py-16 px-3 sm:px-6 lg:px-10 overflow-hidden">
       <SectionBackground prefersReducedMotion={prefersReducedMotion} />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-4 sm:mb-8 md:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -743,7 +743,7 @@ function MessagesContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl font-heading font-bold tracking-tight mb-4"
+            className="text-2xl sm:text-3xl md:text-5xl font-heading font-bold tracking-tight mb-2 sm:mb-4"
           >
             <span className="bg-gradient-to-r from-white via-purple-100 to-white bg-clip-text text-transparent">
               Your
@@ -755,7 +755,7 @@ function MessagesContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-white/60 max-w-2xl mx-auto"
+            className="hidden sm:block text-lg text-white/60 max-w-2xl mx-auto"
           >
             Connect with other traders and discuss your exchanges
           </motion.p>

@@ -13,10 +13,7 @@ import adminRoutes from "./routes/adminRoutes";
 import notificationRoutes from "./routes/notificationRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
-<<<<<<< HEAD
 import Category from "./models/Category";
-=======
->>>>>>> f89b985b58da9bdb50c90e231e4ddb7a2d3380be
 import { notFound, errorHandler } from "./middleware/errorMiddleware";
 import { initSocket } from "./socket";
 

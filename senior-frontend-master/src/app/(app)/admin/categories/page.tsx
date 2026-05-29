@@ -1,6 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
 import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
@@ -63,33 +62,10 @@ export default function CategoriesPage() {
   const [openId, setOpenId]             = useState<string | null>(null);
   const [products, setProducts]         = useState<Record<string, Product[]>>({});
   const [loadingProducts, setLoadingProducts] = useState<string | null>(null);
-=======
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { Pencil, Trash2, Plus, Check, X } from "lucide-react";
-
-type Category = { _id: string; name: string; createdAt: string };
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://dakesh-backend.onrender.com";
-
-export default function CategoriesPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const [newName, setNewName] = useState("");
-  const [isAdding, setIsAdding] = useState(false);
-  const [addError, setAddError] = useState<string | null>(null);
-
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editName, setEditName] = useState("");
->>>>>>> f89b985b58da9bdb50c90e231e4ddb7a2d3380be
 
   const token = Cookies.get("token");
   const headers = { Authorization: `Bearer ${token}` };
 
-<<<<<<< HEAD
   useEffect(() => { fetchCategories(); }, []);
 
   const fetchCategories = async () => {
@@ -104,7 +80,7 @@ export default function CategoriesPage() {
   const toggleProducts = async (cat: Category) => {
     if (openId === cat._id) { setOpenId(null); return; }
     setOpenId(cat._id);
-    if (products[cat._id]) return; // already fetched
+    if (products[cat._id]) return;
     setLoadingProducts(cat._id);
     try {
       const res = await axios.get(`${API_BASE}/api/products`, {
@@ -122,28 +98,10 @@ export default function CategoriesPage() {
       setProducts(prev => ({ ...prev, [catId]: prev[catId].filter(p => p._id !== productId) }));
       setCategories(prev => prev.map(c => c._id === catId ? { ...c, productCount: Math.max(0, c.productCount - 1) } : c));
     } catch { alert("Failed to delete product"); }
-=======
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await axios.get(`${API_BASE}/api/categories`);
-      setCategories(res.data);
-    } catch {
-      setError("Failed to load categories");
-    } finally {
-      setIsLoading(false);
-    }
->>>>>>> f89b985b58da9bdb50c90e231e4ddb7a2d3380be
   };
 
   const handleAdd = async () => {
     if (!newName.trim()) return;
-<<<<<<< HEAD
     setIsAdding(true); setAddError(null);
     try {
       const res = await axios.post(`${API_BASE}/api/categories`, { name: newName.trim() }, { headers });
@@ -151,26 +109,12 @@ export default function CategoriesPage() {
       setNewName("");
     } catch (err: any) { setAddError(err.response?.data?.message || "Already exists"); }
     finally { setIsAdding(false); }
-=======
-    setIsAdding(true);
-    setAddError(null);
-    try {
-      const res = await axios.post(`${API_BASE}/api/categories`, { name: newName.trim() }, { headers });
-      setCategories((prev) => [...prev, res.data].sort((a, b) => a.name.localeCompare(b.name)));
-      setNewName("");
-    } catch (err: any) {
-      setAddError(err.response?.data?.message || "Failed to add category");
-    } finally {
-      setIsAdding(false);
-    }
->>>>>>> f89b985b58da9bdb50c90e231e4ddb7a2d3380be
   };
 
   const handleEdit = async (id: string) => {
     if (!editName.trim()) return;
     try {
       const res = await axios.put(`${API_BASE}/api/categories/${id}`, { name: editName.trim() }, { headers });
-<<<<<<< HEAD
       setCategories(prev => prev.map(c => c._id === id ? res.data : c).sort((a, b) => a.name.localeCompare(b.name)));
       setEditingId(null);
     } catch (err: any) { alert(err.response?.data?.message || "Failed"); }
@@ -202,7 +146,6 @@ export default function CategoriesPage() {
           ← Back to Admin
         </button>
 
-        {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-2xl bg-brand-500/20 border border-brand-500/30 flex items-center justify-center">
@@ -210,7 +153,7 @@ export default function CategoriesPage() {
             </div>
             <p className="text-xs uppercase tracking-[0.2em] text-brand-400/80 font-semibold">Admin · Categories</p>
           </div>
-          <h1 className="text-5xl font-black text-white mb-2 leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-black text-white mb-2 leading-tight">
             Product<br />
             <span className="bg-gradient-to-r from-brand-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Categories</span>
           </h1>
@@ -228,7 +171,6 @@ export default function CategoriesPage() {
           </div>
         </div>
 
-        {/* Toolbar */}
         <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -249,7 +191,6 @@ export default function CategoriesPage() {
         </div>
         {addError && <p className="text-red-400 text-xs mb-4 flex items-center gap-1"><X className="w-3.5 h-3.5" />{addError}</p>}
 
-        {/* Cards */}
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[...Array(8)].map((_, i) => <div key={i} className="h-36 rounded-2xl bg-white/5 border border-white/10 animate-pulse" />)}
@@ -272,11 +213,9 @@ export default function CategoriesPage() {
                   <motion.div key={cat._id} variants={cardVariants} layout exit="exit"
                     className={`group relative overflow-hidden bg-gradient-to-br ${gradient} backdrop-blur-md border rounded-2xl transition-all duration-300 ${isOpen ? "border-brand-500/40 shadow-2xl col-span-2 md:col-span-3 lg:col-span-4" : `border-white/10 hover:border-white/20 hover:-translate-y-1.5 hover:shadow-xl ${glow}`}`}>
 
-                    {/* Shine */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-tr from-white/5 via-transparent to-transparent transition-opacity duration-500 pointer-events-none rounded-2xl" />
 
                     {editingId === cat._id ? (
-                      /* Edit mode */
                       <div className="p-4 flex flex-col gap-2.5">
                         <input type="text" value={editName} onChange={e => setEditName(e.target.value)}
                           onKeyDown={e => { if (e.key === "Enter") handleEdit(cat._id); if (e.key === "Escape") setEditingId(null); }}
@@ -292,7 +231,6 @@ export default function CategoriesPage() {
                       </div>
                     ) : (
                       <>
-                        {/* Card header — always visible */}
                         <div className="p-4 cursor-pointer" onClick={() => toggleProducts(cat)}>
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -307,38 +245,34 @@ export default function CategoriesPage() {
                                 </span>
                               </div>
                             </div>
-
-                            {/* Chevron */}
                             <ChevronDown className={`w-4 h-4 text-white/40 flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
                           </div>
 
-                          {/* Edit/Delete row — hidden for built-in categories */}
-                          {cat.isDefault ? (
-                            <div className="mt-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" onClick={e => e.stopPropagation()}>
+                          {/* Edit/Delete — hidden for built-ins */}
+                          <div className="flex gap-1.5 mt-3 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200" onClick={e => e.stopPropagation()}>
+                            {cat.isDefault ? (
                               <div className="flex-1 py-1.5 rounded-xl bg-white/5 border border-white/8 text-white/25 text-xs flex items-center justify-center gap-1 cursor-not-allowed">
                                 <Lock className="w-3 h-3" /> Built-in
                               </div>
-                            </div>
-                          ) : (
-                            <div className="flex gap-1.5 mt-3 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200" onClick={e => e.stopPropagation()}>
-                              <button onClick={() => { setEditingId(cat._id); setEditName(cat.name); }}
-                                className="flex-1 py-1.5 rounded-xl bg-white/8 hover:bg-white/15 border border-white/10 text-white/50 hover:text-white text-xs flex items-center justify-center gap-1 transition-all">
-                                <Pencil className="w-3 h-3" /> Edit
-                              </button>
-                              <button onClick={() => handleDeleteCat(cat._id, cat.name)}
-                                className="flex-1 py-1.5 rounded-xl bg-red-500/15 hover:bg-red-500/35 border border-red-500/20 text-red-400 hover:text-red-300 text-xs flex items-center justify-center gap-1 transition-all">
-                                <Trash2 className="w-3 h-3" /> Delete
-                              </button>
-                            </div>
-                          )}
+                            ) : (
+                              <>
+                                <button onClick={() => { setEditingId(cat._id); setEditName(cat.name); }}
+                                  className="flex-1 py-1.5 rounded-xl bg-white/8 hover:bg-white/15 border border-white/10 text-white/50 hover:text-white text-xs flex items-center justify-center gap-1 transition-all">
+                                  <Pencil className="w-3 h-3" /> Edit
+                                </button>
+                                <button onClick={() => handleDeleteCat(cat._id, cat.name)}
+                                  className="flex-1 py-1.5 rounded-xl bg-red-500/15 hover:bg-red-500/35 border border-red-500/20 text-red-400 hover:text-red-300 text-xs flex items-center justify-center gap-1 transition-all">
+                                  <Trash2 className="w-3 h-3" /> Delete
+                                </button>
+                              </>
+                            )}
+                          </div>
                         </div>
 
-                        {/* Expanded product list */}
                         <AnimatePresence>
                           {isOpen && (
                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden border-t border-white/10">
-
                               {isLoadingCat ? (
                                 <div className="p-4 space-y-2">
                                   {[...Array(3)].map((_, i) => <div key={i} className="h-12 rounded-xl bg-white/5 animate-pulse" />)}
@@ -354,7 +288,6 @@ export default function CategoriesPage() {
                                     <motion.div key={product._id}
                                       initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: pi * 0.04 }}
                                       className="group/p flex items-center gap-3 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/8 hover:border-white/15 transition-all duration-200">
-                                      {/* Thumbnail */}
                                       <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/5 flex-shrink-0">
                                         {product.images?.[0] ? (
                                           <Image src={getImageSrc(product.images[0])} alt={product.title} width={40} height={40} className="w-full h-full object-cover" />
@@ -364,8 +297,6 @@ export default function CategoriesPage() {
                                           </div>
                                         )}
                                       </div>
-
-                                      {/* Info */}
                                       <div className="flex-1 min-w-0">
                                         <p className="text-white text-xs font-semibold truncate">{product.title}</p>
                                         <div className="flex items-center gap-2 mt-0.5">
@@ -376,8 +307,6 @@ export default function CategoriesPage() {
                                           </span>
                                         </div>
                                       </div>
-
-                                      {/* Delete */}
                                       <button onClick={() => handleDeleteProduct(cat._id, product._id, product.title)}
                                         className="w-7 h-7 rounded-xl bg-red-500/15 hover:bg-red-500/40 border border-red-500/20 text-red-400 hover:text-red-300 flex items-center justify-center opacity-0 group-hover/p:opacity-100 transition-all duration-200 flex-shrink-0">
                                         <Trash2 className="w-3.5 h-3.5" />
@@ -397,124 +326,6 @@ export default function CategoriesPage() {
             </AnimatePresence>
           </motion.div>
         )}
-=======
-      setCategories((prev) => prev.map((c) => (c._id === id ? res.data : c)).sort((a, b) => a.name.localeCompare(b.name)));
-      setEditingId(null);
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to update category");
-    }
-  };
-
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Delete category "${name}"? Products using it will keep the name but it won't appear in filters.`)) return;
-    try {
-      await axios.delete(`${API_BASE}/api/categories/${id}`, { headers });
-      setCategories((prev) => prev.filter((c) => c._id !== id));
-    } catch {
-      alert("Failed to delete category");
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-surface p-6">
-      <button onClick={() => window.history.back()} className="mb-6 text-brand-200 hover:text-brand-100 text-sm font-semibold transition-colors">
-        ← Go Back
-      </button>
-
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          Manage <span className="text-brand-400">Categories</span>
-        </h1>
-        <p className="text-slate-400 text-sm mb-8">Add, edit, or remove product categories.</p>
-
-        {/* Add Category */}
-        <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
-          <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wide mb-3">Add New Category</h2>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder="Category name..."
-              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
-            />
-            <button
-              onClick={handleAdd}
-              disabled={isAdding || !newName.trim()}
-              className="flex items-center gap-2 px-5 py-2 bg-brand-500 hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              {isAdding ? "Adding..." : "Add"}
-            </button>
-          </div>
-          {addError && <p className="text-red-400 text-xs mt-2">{addError}</p>}
-        </div>
-
-        {/* Categories List */}
-        <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-          <div className="px-5 py-3 border-b border-white/10 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wide">
-              All Categories
-            </h2>
-            <span className="text-xs text-slate-500">{categories.length} total</span>
-          </div>
-
-          {isLoading ? (
-            <div className="py-12 text-center text-slate-400 text-sm">Loading...</div>
-          ) : error ? (
-            <div className="py-12 text-center text-red-400 text-sm">{error}</div>
-          ) : categories.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 text-sm">No categories yet.</div>
-          ) : (
-            <ul className="divide-y divide-white/5">
-              {categories.map((cat) => (
-                <li key={cat._id} className="flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors group">
-                  {editingId === cat._id ? (
-                    <>
-                      <input
-                        type="text"
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") handleEdit(cat._id);
-                          if (e.key === "Escape") setEditingId(null);
-                        }}
-                        autoFocus
-                        className="flex-1 bg-white/10 border border-brand-500/50 rounded-lg px-3 py-1.5 text-white text-sm focus:outline-none focus:border-brand-500"
-                      />
-                      <button onClick={() => handleEdit(cat._id)} className="p-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors">
-                        <Check className="w-4 h-4" />
-                      </button>
-                      <button onClick={() => setEditingId(null)} className="p-1.5 rounded-lg bg-white/10 text-slate-400 hover:bg-white/20 transition-colors">
-                        <X className="w-4 h-4" />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <span className="flex-1 text-white font-medium">{cat.name}</span>
-                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button
-                          onClick={() => { setEditingId(cat._id); setEditName(cat.name); }}
-                          className="p-1.5 rounded-lg bg-brand-500/20 text-brand-400 hover:bg-brand-500/30 transition-colors"
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(cat._id, cat.name)}
-                          className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
->>>>>>> f89b985b58da9bdb50c90e231e4ddb7a2d3380be
       </div>
     </div>
   );
