@@ -11,11 +11,21 @@ const onlineUsers = new Map<string, Set<string>>();
 export const initSocket = (server: HttpServer) => {
   io = new Server(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "https://senior-frontend-eta.vercel.app",
-        process.env.FRONTEND_URL || "https://senior-frontend-eta.vercel.app",
-      ],
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const allowed = [
+          "http://localhost:3000",
+          "http://localhost:5050",
+          "https://senior-frontend-eta.vercel.app",
+          process.env.FRONTEND_URL || "https://senior-frontend-eta.vercel.app",
+        ];
+        const isLocalNetwork = /^http:\/\/(192\.168\.|10\.)[\d.]+:\d+$/.test(origin);
+        if (allowed.includes(origin) || isLocalNetwork) {
+          callback(null, true);
+        } else {
+          callback(new Error(`Socket CORS: origin ${origin} not allowed`));
+        }
+      },
       methods: ["GET", "POST"],
       credentials: true,
     },
