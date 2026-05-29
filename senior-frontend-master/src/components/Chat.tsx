@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { useSocket } from "@/hooks/useSocket";
 import { getConversation, sendMessage, sendMessageWithImage, deleteMessage, markMessagesAsRead, type Message } from "@/lib/messageService";
 import axios from "axios";
+import { getImageSrc } from "@/lib/getImageSrc";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://dakesh-backend.onrender.com";
 
@@ -468,25 +469,27 @@ export default function Chat({
                       
                       {/* Product images for trade request */}
                       {isTradeRequest && message.offeredProductId && message.requestedProductId && (
-                        <div className="flex items-center gap-2 mb-2">
-                          {/* Offered product */}
-                          <div className="flex flex-col items-center">
-                            <img 
-                              src={message.offeredProductId.images?.[0] || '/placeholder.png'} 
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="flex flex-col items-center flex-1 min-w-0">
+                            <img
+                              src={getImageSrc(message.offeredProductId.images?.[0])}
                               alt={message.offeredProductId.title}
-                              className="w-16 h-16 rounded-lg object-cover border border-white/20"
+                              className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover border border-white/20 w-full"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                             />
-                            <span className="text-xs text-white/70 mt-1 max-w-16 truncate">{message.offeredProductId.title}</span>
+                            <span className="text-[10px] text-white/70 mt-1 truncate w-full text-center">{message.offeredProductId.title}</span>
                           </div>
-                          <Repeat className="w-5 h-5 text-amber-400 flex-shrink-0" />
-                          {/* Requested product */}
-                          <div className="flex flex-col items-center">
-                            <img 
-                              src={message.requestedProductId.images?.[0] || '/placeholder.png'} 
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center">
+                            <Repeat className="w-3 h-3 text-amber-400" />
+                          </div>
+                          <div className="flex flex-col items-center flex-1 min-w-0">
+                            <img
+                              src={getImageSrc(message.requestedProductId.images?.[0])}
                               alt={message.requestedProductId.title}
-                              className="w-16 h-16 rounded-lg object-cover border border-white/20"
+                              className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover border border-white/20 w-full"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                             />
-                            <span className="text-xs text-white/70 mt-1 max-w-16 truncate">{message.requestedProductId.title}</span>
+                            <span className="text-[10px] text-white/70 mt-1 truncate w-full text-center">{message.requestedProductId.title}</span>
                           </div>
                         </div>
                       )}
