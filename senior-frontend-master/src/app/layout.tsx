@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="antialiased bg-surface text-white font-sans">
+      <body className="antialiased bg-surface text-white font-sans overflow-x-hidden">
         <ErrorBoundary>
           <AuthProvider>
             <NotificationProvider>
