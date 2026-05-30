@@ -81,8 +81,8 @@ export default function Login() {
       <div className="absolute -bottom-28 -left-24 w-64 h-64 rounded-full bg-brand-500/15 blur-3xl" />
       <div className="absolute -top-16 -right-8 w-64 h-64 rounded-full bg-brand-700/20 blur-3xl" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 py-16 md:py-24">
-        <div className="flex items-center gap-3 mb-10">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 py-10 sm:py-16 md:py-24">
+        <div className="flex items-center gap-3 mb-6 sm:mb-10">
           <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-brand-500 via-brand-400 to-brand-700 shadow-lg shadow-brand-500/35 border border-white/10 flex items-center justify-center text-lg font-bold text-slate-950">
             Dk
           </div>

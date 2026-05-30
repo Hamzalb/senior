@@ -83,7 +83,7 @@ export default function ProductsPage() {
         {/* Unified background style with particles */}
         <SectionBackground prefersReducedMotion={prefersReducedMotion} />
         
-        <div className="relative z-10 container mx-auto px-4 py-14">
+        <div className="relative z-10 container mx-auto px-4 pt-20 pb-14">
           {/* Header skeleton */}
           <div className="text-center space-y-3 mb-10">
             <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
@@ -117,24 +117,24 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-surface py-14 overflow-x-hidden">
+    <div className="relative min-h-screen bg-surface pt-20 pb-14 overflow-x-hidden">
       {/* Unified background style with particles */}
       <SectionBackground prefersReducedMotion={prefersReducedMotion} />
       
       <div className="relative container mx-auto px-4">
         {/* Page Title */}
-        <div className="text-center space-y-3 mb-10">
-          <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
+        <div className="text-center space-y-3 mb-8 sm:mb-10">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.35em] text-brand-200/80">
             Marketplace
           </p>
-          <h1 className="text-4xl font-bold text-white">Products</h1>
-          <p className="text-lg font-semibold text-slate-200/85">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white">Products</h1>
+          <p className="text-base sm:text-lg font-semibold text-slate-200/85">
             Check out the latest items that you might want to barter with.
           </p>
         </div>
 
         {/* CATEGORY FILTER BAR */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
           {ALL_CATEGORIES.map((cat) => {
             const isActive = cat === selectedCategory;
             return (
@@ -142,7 +142,7 @@ export default function ProductsPage() {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`
-                  px-5 py-2 rounded-full text-sm font-semibold tracking-wide
+                  px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide
                   transition-all duration-300
                   backdrop-blur-md border
                   ${

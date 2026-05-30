@@ -120,7 +120,7 @@ const AboutSection = () => {
         {/* Heading with text reveal animation */}
         <motion.h2
           variants={textRevealVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-[#f7d7ff] mb-4 drop-shadow-sm"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-[#f7d7ff] mb-4 drop-shadow-sm"
         >
           {isInView && !prefersReducedMotion ? (
             <AnimatedText text="What is yalla nbadel?" />
@@ -132,7 +132,7 @@ const AboutSection = () => {
         {/* Tagline */}
         <motion.p
           variants={fadeUpVariants}
-          className="text-xl md:text-2xl lg:text-3xl font-heading font-semibold text-slate-200 mb-8 tracking-tight"
+          className="text-base sm:text-xl md:text-2xl lg:text-3xl font-heading font-semibold text-slate-200 mb-8 tracking-tight"
         >
           Trade it, Don't waste it.
         </motion.p>

@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: false, // prevents double-rendering every component in dev
+  reactStrictMode: false,
+  turbopack: {},
   experimental: {
     // only import the icons/components actually used — biggest speed win
     optimizePackageImports: [
@@ -23,13 +24,6 @@ const nextConfig: NextConfig = {
       { protocol: "http", hostname: "10.*" },
       { protocol: "http", hostname: "192.168.*" },
     ],
-  },
-  webpack: (config, { dev }) => {
-    if (dev) {
-      // skip full source maps in dev — much faster rebuilds
-      config.devtool = "eval-cheap-source-map";
-    }
-    return config;
   },
 };
 

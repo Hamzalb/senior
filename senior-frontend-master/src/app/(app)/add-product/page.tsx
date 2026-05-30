@@ -139,11 +139,11 @@ export default function AddProductPage() {
     );
 
   return (
-    <div className="relative min-h-screen bg-surface text-slate-100 flex items-center justify-center p-6 overflow-hidden">
+    <div className="relative min-h-screen bg-surface text-slate-100 flex items-center justify-center px-4 py-20 sm:py-24 overflow-hidden">
       <div className="absolute inset-0 opacity-80 bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.22),transparent_30%),radial-gradient(circle_at_80%_0,rgba(124,58,237,0.2),transparent_28%),radial-gradient(circle_at_60%_80%,rgba(255,255,255,0.06),transparent_32%)]" />
       <div className="absolute -bottom-32 -right-24 w-80 h-80 bg-brand-500/15 blur-3xl rounded-full" />
       <div className="absolute -top-24 -left-16 w-64 h-64 bg-brand-700/15 blur-3xl rounded-full" />
-      <div className="relative w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_25px_70px_-35px_rgba(168,85,247,0.35)] p-10">
+      <div className="relative w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_25px_70px_-35px_rgba(168,85,247,0.35)] p-6 sm:p-10">
         <div className="text-center space-y-2 mb-4">
           <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
             Listing

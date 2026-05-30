@@ -69,38 +69,38 @@ export default function ProductPage() {
 
   if (loading) {
     return (
-      <div className="p-8 max-w-6xl mx-auto h-screen">
-        <p>Loading product...</p>
+      <div className="min-h-screen bg-surface px-4 pt-20 flex items-center justify-center">
+        <p className="text-white/60">Loading product...</p>
       </div>
     );
   }
   if (error) {
     return (
-      <div className="p-8 max-w-6xl mx-auto h-screen">
-        <p className="text-red-500">{error}</p>
+      <div className="min-h-screen bg-surface px-4 pt-20 flex items-center justify-center">
+        <p className="text-red-400">{error}</p>
       </div>
     );
   }
   if (!product) {
     return (
-      <div className="p-8 max-w-6xl mx-auto h-screen">
-        <p>Product not found.</p>
+      <div className="min-h-screen bg-surface px-4 pt-20 flex items-center justify-center">
+        <p className="text-white/60">Product not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="p-8 min-h-screen bg-gradient-to-tr from-[#522c5d] to-[#232323] flex items-center justify-center">
+    <div className="min-h-screen bg-surface px-4 pt-20 sm:pt-24 pb-8 sm:pb-14 flex items-center justify-center">
       <div
-        className="flex flex-col md:flex-row gap-10 items-center max-w-5xl w-full 
-                  bg-white/5 backdrop-blur-md rounded-2xl p-8 
+        className="flex flex-col md:flex-row gap-6 md:gap-10 items-start md:items-center max-w-5xl w-full
+                  bg-white/5 backdrop-blur-md rounded-2xl p-5 sm:p-8
                   border border-white/10 shadow-xl"
       >
         {/* IMAGE SECTION */}
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-2/5">
           <div
-            className="relative w-full h-96 rounded-xl overflow-hidden shadow-lg bg-black/10 
-                      border border-white/10 hover:shadow-purple-600/30 hover:scale-[1.02] transition-all duration-300"
+            className="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg bg-black/10
+                      border border-white/10 hover:shadow-brand-500/30 hover:scale-[1.02] transition-all duration-300"
           >
             {product.images?.length ? (
               <Image
@@ -110,7 +110,7 @@ export default function ProductPage() {
                 className="object-contain p-4 transition-transform duration-300 hover:scale-105"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500">
+              <div className="absolute inset-0 flex items-center justify-center bg-white/5 text-white/40 text-sm">
                 No Image
               </div>
             )}
@@ -118,39 +118,39 @@ export default function ProductPage() {
         </div>
 
         {/* DETAILS SECTION */}
-        <div className="w-full md:w-1/2 flex flex-col gap-4 text-center md:text-left">
-          <h1 className="text-4xl font-extrabold text-white drop-shadow-md">
+        <div className="w-full md:flex-1 flex flex-col gap-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow-md leading-tight">
             {product.title}
           </h1>
 
-          <p className="text-sm text-purple-200 font-medium">
+          <p className="text-sm text-brand-300 font-medium">
             By{" "}
             <span className="text-white">
               {product.owner?.username || "Unknown"}
             </span>
           </p>
 
-          <p className="text-gray-300 text-base leading-relaxed">
+          <p className="text-white/70 text-base leading-relaxed">
             {product.description}
           </p>
 
           <div className="mt-4 flex flex-col sm:flex-row gap-3">
             <button
               onClick={handleDakesh}
-              className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 
-                    text-white px-8 py-3 rounded-xl font-semibold 
+              className="inline-flex items-center justify-center bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600
+                    text-white px-6 sm:px-8 py-3 rounded-xl font-semibold
                     hover:opacity-90 hover:shadow-lg hover:-translate-y-[2px]
-                    transition-all duration-300 shadow-purple-800/30"
+                    transition-all duration-300 shadow-brand-500/30"
             >
               yalla nbadel
             </button>
             <a
               href={getContactOwnerMailto()}
-              className="inline-flex items-center justify-center gap-2 
-                    bg-gradient-to-r from-blue-500 to-cyan-500 
-                    text-white px-8 py-3 rounded-xl font-semibold 
-                    hover:opacity-90 hover:shadow-lg hover:-translate-y-[2px]
-                    transition-all duration-300 shadow-blue-800/30"
+              className="inline-flex items-center justify-center gap-2
+                    bg-white/10 border border-white/20
+                    text-white px-6 sm:px-8 py-3 rounded-xl font-semibold
+                    hover:bg-white/20 hover:shadow-lg hover:-translate-y-[2px]
+                    transition-all duration-300"
             >
               <MdEmail className="text-xl" />
               Contact Owner

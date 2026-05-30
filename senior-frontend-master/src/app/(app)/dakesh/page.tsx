@@ -313,7 +313,7 @@ function DakeshContent() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto p-8">
+      <div className="max-w-6xl mx-auto p-4 sm:p-8">
         {/* Target Product Info */}
         {targetProduct && !barterInitiated && (
           <motion.div
@@ -322,30 +322,30 @@ function DakeshContent() {
             className="mb-8 p-6 rounded-2xl bg-white/5 border border-white/10"
           >
             <p className="text-brand-200 text-sm mb-2">You want to request:</p>
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="flex items-center gap-4">
                 {(targetProduct.images?.length ?? 0) > 0 ? (
                   <img
                     src={getImageSrc(targetProduct.images?.[0] || "")}
                     alt={targetProduct.title}
-                    className="w-16 h-16 rounded-lg object-cover"
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0"
                   />
                 ) : (
-                  <div className="w-16 h-16 rounded-lg bg-white/5 flex items-center justify-center text-white/30 text-xs">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-white/5 flex items-center justify-center text-white/30 text-xs flex-shrink-0">
                     No image
                   </div>
                 )}
-                <div>
-                  <h2 className="text-xl font-bold">{targetProduct.title}</h2>
+                <div className="min-w-0">
+                  <h2 className="text-lg sm:text-xl font-bold truncate">{targetProduct.title}</h2>
                   <p className="text-brand-200 text-sm">
-                    Category: {targetProduct.category} - Owner: {targetProduct.owner.username}
+                    Category: {targetProduct.category} · Owner: {targetProduct.owner.username}
                   </p>
                 </div>
               </div>
               {/* Contact Owner Button */}
               <button
                 onClick={handleContactOwner}
-                className="flex items-center gap-2 px-4 py-2 bg-brand-600/30 hover:bg-brand-600/50 border border-brand-400/30 rounded-xl text-brand-200 hover:text-white transition-all text-sm font-medium"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-brand-600/30 hover:bg-brand-600/50 border border-brand-400/30 rounded-xl text-brand-200 hover:text-white transition-all text-sm font-medium flex-shrink-0"
               >
                 <MessageCircle className="w-4 h-4" />
                 Contact Owner

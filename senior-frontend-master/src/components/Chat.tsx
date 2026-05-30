@@ -552,53 +552,56 @@ export default function Chat({
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 border-t border-white/10 bg-surface/80 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
+      <form onSubmit={handleSendMessage} className="px-2 py-2 sm:px-4 sm:py-3 border-t border-white/10 bg-surface/80 backdrop-blur-xl">
+        {/* Image preview strip */}
+        {imagePreview && (
+          <div className="flex items-center gap-2 mb-2 px-1">
+            <div className="relative">
+              <img src={imagePreview} alt="Preview" className="w-12 h-12 object-cover rounded-lg border border-white/20" />
+              <button type="button" onClick={() => { setSelectedImage(null); setImagePreview(null); }}
+                className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                <X className="w-2.5 h-2.5 text-white" />
+              </button>
+            </div>
+            <span className="text-xs text-white/40">Image attached</span>
+          </div>
+        )}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Trade request button */}
           <button
             type="button"
             onClick={openTradeModal}
-            className="p-3 rounded-full bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors"
+            className="p-2 sm:p-2.5 rounded-full bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors flex-shrink-0"
             title="Send Trade Request"
           >
-            <Repeat className="w-5 h-5" />
+            <Repeat className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          
+
           {/* Image upload button */}
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="p-3 rounded-full bg-white/5 text-white/70 hover:bg-white/10 transition-colors"
+            className="p-2 sm:p-2.5 rounded-full bg-white/5 text-white/70 hover:bg-white/10 transition-colors flex-shrink-0"
             title="Send Image"
           >
-            <ImageIcon className="w-5 h-5" />
+            <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleImageSelect}
-            className="hidden"
-          />
-          
+          <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageSelect} className="hidden" />
+
           <input
             type="text"
             value={newMessage}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder="Type a message..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-brand-500 transition-colors"
+            className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-full px-3 sm:px-4 py-2 text-sm sm:text-base text-white placeholder-white/40 focus:outline-none focus:border-brand-500 transition-colors"
             disabled={isSending}
           />
           <button
             type="submit"
-            disabled={!newMessage.trim() || isSending}
-            className="p-3 rounded-full bg-gradient-to-r from-brand-500 to-purple-600 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-brand-500/25 transition-all"
+            disabled={(!newMessage.trim() && !selectedImage) || isSending}
+            className="p-2 sm:p-2.5 rounded-full bg-gradient-to-r from-brand-500 to-purple-600 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-brand-500/25 transition-all flex-shrink-0"
           >
-            {isSending ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : (
-              <Send className="w-5 h-5" />
-            )}
+            {isSending ? <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" /> : <Send className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
         </div>
       </form>
@@ -610,7 +613,7 @@ export default function Chat({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center sm:p-4"
             onClick={() => setShowTradeModal(false)}
           >
             <motion.div
@@ -618,7 +621,7 @@ export default function Chat({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-surface border border-white/10 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              className="bg-surface border border-white/10 rounded-t-3xl sm:rounded-2xl p-4 sm:p-6 w-full sm:max-w-2xl max-h-[90vh] sm:max-h-[80vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -642,7 +645,7 @@ export default function Chat({
                   {/* Your product */}
                   <div>
                     <h3 className="text-sm font-semibold text-white/70 mb-3">Your Product (What you offer)</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                       {myProducts.length === 0 ? (
                         <p className="text-white/50 col-span-full text-center py-4">You have no products available for trade</p>
                       ) : (
@@ -657,11 +660,12 @@ export default function Chat({
                             }`}
                           >
                             <img
-                              src={product.images?.[0] || '/placeholder.png'}
+                              src={getImageSrc(product.images?.[0])}
                               alt={product.title}
-                              className="w-full h-20 object-cover rounded-lg mb-2"
+                              className="w-full h-16 sm:h-20 object-cover rounded-lg mb-1.5"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                             />
-                            <p className="text-sm text-white truncate">{product.title}</p>
+                            <p className="text-xs sm:text-sm text-white truncate">{product.title}</p>
                           </button>
                         ))
                       )}
@@ -671,7 +675,7 @@ export default function Chat({
                   {/* Recipient's product */}
                   <div>
                     <h3 className="text-sm font-semibold text-white/70 mb-3">Their Product (What you want)</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                       {recipientProducts.length === 0 ? (
                         <p className="text-white/50 col-span-full text-center py-4">This user has no products available for trade</p>
                       ) : (
@@ -686,11 +690,12 @@ export default function Chat({
                             }`}
                           >
                             <img
-                              src={product.images?.[0] || '/placeholder.png'}
+                              src={getImageSrc(product.images?.[0])}
                               alt={product.title}
-                              className="w-full h-20 object-cover rounded-lg mb-2"
+                              className="w-full h-16 sm:h-20 object-cover rounded-lg mb-1.5"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                             />
-                            <p className="text-sm text-white truncate">{product.title}</p>
+                            <p className="text-xs sm:text-sm text-white truncate">{product.title}</p>
                           </button>
                         ))
                       )}

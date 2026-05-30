@@ -57,7 +57,7 @@ const ContactForm = () => {
       <SectionBackground prefersReducedMotion={prefersReducedMotion} />
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_25px_70px_-35px_rgba(203,108,230,0.35)] px-8 py-10 space-y-4">
+      <div className="relative z-10 w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_25px_70px_-35px_rgba(203,108,230,0.35)] px-5 sm:px-8 py-8 sm:py-10 space-y-4">
         <div className="text-center space-y-2">
           <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
             Contact

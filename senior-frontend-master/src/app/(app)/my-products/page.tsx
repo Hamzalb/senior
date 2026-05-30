@@ -88,7 +88,7 @@ const MyProductsPage = () => {
   // Loading state with premium skeleton cards
   if (loading) {
     return (
-      <div className="relative min-h-screen bg-surface text-slate-100 px-6 py-12 overflow-hidden">
+      <div className="relative min-h-screen bg-surface text-slate-100 px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
         {/* Subtle background gradients */}
         <div className="absolute inset-0 opacity-80 bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.15),transparent_30%),radial-gradient(circle_at_80%_0,rgba(124,58,237,0.15),transparent_28%),radial-gradient(circle_at_60%_80%,rgba(255,255,255,0.04),transparent_32%)]" />
         
@@ -116,7 +116,7 @@ const MyProductsPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-surface text-slate-100 px-6 py-12 overflow-hidden">
+    <div className="relative min-h-screen bg-surface text-slate-100 px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
       {/* Subtle background gradients */}
       <div className="absolute inset-0 opacity-80 bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.12),transparent_30%),radial-gradient(circle_at_80%_0,rgba(124,58,237,0.12),transparent_28%),radial-gradient(circle_at_60%_80%,rgba(255,255,255,0.04),transparent_32%)]" />
       

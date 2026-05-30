@@ -40,12 +40,12 @@ const FALLBACKS = [
 ];
 function getCfg(name: string, i: number) {
   const key = name.toLowerCase().trim();
-  return CATEGORY_CONFIG[key] ? { icon: CATEGORY_CONFIG[key].icon, ...CATEGORY_CONFIG[key] } : { icon: Tag, ...FALLBACKS[i % FALLBACKS.length] };
+  return CATEGORY_CONFIG[key] ? { ...CATEGORY_CONFIG[key] } : { icon: Tag, ...FALLBACKS[i % FALLBACKS.length] };
 }
 
 const cardVariants = {
   hidden: { opacity: 0, y: 24, scale: 0.95 },
-  show:   { opacity: 1, y: 0,  scale: 1,    transition: { type: "spring", stiffness: 260, damping: 22 } },
+  show:   { opacity: 1, y: 0,  scale: 1,    transition: { type: "spring" as const, stiffness: 260, damping: 22 } },
   exit:   { opacity: 0, scale: 0.9, y: -10, transition: { duration: 0.2 } },
 };
 

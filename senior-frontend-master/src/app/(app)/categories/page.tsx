@@ -71,27 +71,27 @@ const Categories = () => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-surface py-20 px-5 md:px-12 overflow-hidden">
+    <div className="relative min-h-screen bg-surface py-20 px-4 sm:px-6 md:px-12 overflow-hidden">
       {/* Unified background style with particles */}
       <SectionBackground prefersReducedMotion={prefersReducedMotion} />
       
       <div className="relative container mx-auto text-center">
         {/* Main Title */}
-        <div className="flex flex-col items-center gap-3 mb-10">
-          <p className="text-sm uppercase tracking-[0.35em] text-brand-200/80">
+        <div className="flex flex-col items-center gap-3 mb-8 sm:mb-10">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.35em] text-brand-200/80">
             Categories
           </p>
-          <h1 className="text-4xl font-extrabold text-white drop-shadow">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow">
             yalla nbadel by Categories
           </h1>
-          <p className="text-lg text-slate-200 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto">
             Browse our wide selection of products organized by category to
             easily find what you're looking for to trade.
           </p>
         </div>
 
         {/* Category Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 px-2 sm:px-0 py-12 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-10 px-2 sm:px-0 py-8 sm:py-12 items-stretch">
           {categories.map((category) => (
             <Link
               href={category.link}

@@ -106,9 +106,9 @@ export default function ProfilePage() {
       {/* Unified background style with particles */}
       <SectionBackground prefersReducedMotion={prefersReducedMotion} />
       
-      <div className="relative container mx-auto px-6 py-12">
+      <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-12 gap-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-brand-300/80">
               Account
@@ -121,7 +121,7 @@ export default function ProfilePage() {
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 border border-white/10 text-white/70 hover:bg-white/10 
@@ -148,8 +148,8 @@ export default function ProfilePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Profile Card */}
           <div
-            className="lg:col-span-1 bg-surface-elevated/60 backdrop-blur-xl 
-                      rounded-2xl p-8 shadow-2xl shadow-brand-500/10 text-center border border-white/[0.08]"
+            className="lg:col-span-1 bg-surface-elevated/60 backdrop-blur-xl
+                      rounded-2xl p-5 sm:p-8 shadow-2xl shadow-brand-500/10 text-center border border-white/[0.08]"
           >
             <div className="flex flex-col items-center space-y-5">
               <div
@@ -181,19 +181,19 @@ export default function ProfilePage() {
 
           {/* PRODUCTS */}
           <div
-            className="lg:col-span-2 bg-white/5 backdrop-blur-md 
-                      rounded-2xl p-8 shadow-xl shadow-brand-500/20 border border-white/10"
+            className="lg:col-span-2 bg-white/5 backdrop-blur-md
+                      rounded-2xl p-5 sm:p-8 shadow-xl shadow-brand-500/20 border border-white/10"
           >
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold text-white">Your Products</h2>
+            <div className="flex flex-wrap justify-between items-center mb-6 sm:mb-8 gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-white">Your Products</h2>
 
               <button
                 onClick={handleAddProduct}
                 className="flex items-center gap-2 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600
-                       text-slate-950 py-3 px-6 rounded-xl font-semibold text-sm transition-all shadow-md 
+                       text-slate-950 py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl font-semibold text-sm transition-all shadow-md
                        shadow-brand-500/30 hover:shadow-brand-500/35"
               >
-                <Plus className="h-5 w-5" />
+                <Plus className="h-4 w-4 sm:h-5 sm:w-5" />
                 Add Product
               </button>
             </div>

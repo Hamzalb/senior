@@ -179,39 +179,37 @@ export default function NotificationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-surface pt-20 sm:pt-24 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center">
-                <Bell className="w-6 h-6 text-brand-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-500/20 flex items-center justify-center flex-shrink-0">
+                <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-brand-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">Notifications</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-white">Notifications</h1>
                 <p className="text-sm text-white/60">
                   {unreadCount > 0 ? `${unreadCount} unread` : "All caught up!"}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              {/* Connection indicator */}
+            {/* Connection indicator */}
+            <span
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium ${
+                isConnected
+                  ? "bg-green-500/20 text-green-400"
+                  : "bg-slate-500/20 text-slate-400"
+              }`}
+            >
               <span
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium ${
-                  isConnected
-                    ? "bg-green-500/20 text-green-400"
-                    : "bg-slate-500/20 text-slate-400"
+                className={`w-2 h-2 rounded-full ${
+                  isConnected ? "bg-green-400" : "bg-slate-400"
                 }`}
-              >
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    isConnected ? "bg-green-400" : "bg-slate-400"
-                  }`}
-                />
-                {isConnected ? "Connected" : "Disconnected"}
-              </span>
-            </div>
+              />
+              {isConnected ? "Live" : "Offline"}
+            </span>
           </div>
         </div>
 
